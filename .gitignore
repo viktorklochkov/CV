@@ -1,0 +1,14 @@
+# Generated PDF (built by CI)
+*.pdf
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# macOS
+.DS_Store

@@ -1,0 +1,179 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[top=0.65in, bottom=0.65in, left=0.75in, right=0.75in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+
+% ── Colours ──────────────────────────────────────────────────────────────────
+\definecolor{navyblue}{RGB}{20, 60, 110}
+\definecolor{accentblue}{RGB}{30, 100, 180}
+\definecolor{lightgray}{RGB}{100, 100, 100}
+
+% ── Hyperlink style ──────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accentblue,
+  linkcolor=accentblue
+}
+
+% ── No page numbers ──────────────────────────────────────────────────────────
+\pagestyle{empty}
+
+% ── Section headers: navy, rule underneath ───────────────────────────────────
+\titleformat{\section}
+  {\color{navyblue}\large\bfseries}
+  {}{0em}{\MakeUppercase}
+  [\vspace{1pt}\color{navyblue}\hrule\vspace{4pt}]
+\titlespacing{\section}{0pt}{10pt}{4pt}
+
+% ── Bullet list spacing ──────────────────────────────────────────────────────
+\setlist[itemize]{
+  leftmargin=1.4em,
+  topsep=2pt,
+  itemsep=2pt,
+  parsep=0pt
+}
+\setlist[itemize,1]{label=\textcolor{accentblue}{\textbullet}}
+
+% ── Helpers ───────────────────────────────────────────────────────────────────
+\newcommand{\jobtitle}[4]{%
+  \noindent
+  \textbf{#1} \hfill \textcolor{lightgray}{#4}\\
+  \textit{#2} $\cdot$ #3
+  \vspace{3pt}
+}
+
+\newcommand{\skillrow}[2]{%
+  \textcolor{navyblue}{\textbf{#1}} & #2 \\[3pt]
+}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+% ── Header ───────────────────────────────────────────────────────────────────
+\begin{center}
+  {\fontsize{26}{30}\selectfont\bfseries\color{navyblue} Viktor Klochkov, Ph.D.}\\[6pt]
+  {\large\color{lightgray} Senior Software Engineer \ $|$ \ C++ Systems \ $|$ \ Static Analysis \ $|$ \ Medical Device Software}\\[8pt]
+  \small
+  Munich, Germany
+  \quad\textcolor{lightgray}{|}
+  \href{mailto:klochkov44@gmail.com}{klochkov44@gmail.com}
+  \quad\textcolor{lightgray}{|}
+  +49 152 574 71841
+  \quad\textcolor{lightgray}{|}
+  \href{https://github.com/viktorklochkov}{github.com/viktorklochkov}
+  \quad\textcolor{lightgray}{|}
+  \href{https://www.linkedin.com/in/viktor-klochkov/}{linkedin.com/in/viktor-klochkov}
+\end{center}
+
+\vspace{2pt}
+
+% ── Professional Summary ─────────────────────────────────────────────────────
+\section{Professional Summary}
+
+Senior Software Engineer with 10+ years of C++ expertise delivering high-performance, safety-critical software for medical devices (Brainlab Cranial Navigation R\&D) and large-scale scientific computing. Deep hands-on experience in custom static analysis tooling (Clang-tidy), GPU/CPU acceleration (CUDA, OpenCL, SIMD), TDD, and architecting robust C++ frameworks. Ph.D.\ in Nuclear Physics. Combines rigorous scientific background with production software engineering discipline.
+
+% ── Technical Skills ─────────────────────────────────────────────────────────
+\section{Technical Skills}
+
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{@{} >{\raggedright}p{4.2cm} X @{}}
+  \skillrow{Programming Languages}{C/C++ (C++11--C++20), Python, CUDA C}
+  \skillrow{Python Ecosystem}{NumPy, Pandas, SciPy, Matplotlib}
+  \skillrow{Static Analysis}{Clang-tidy (custom checks), GDB, Valgrind}
+  \skillrow{High-Performance Computing}{CUDA, OpenCL, OpenMP, SIMD vectorization (Vc library)}
+  \skillrow{Build \& DevOps}{CMake, Docker, Git, GitLab/GitHub, CI/CD}
+  \skillrow{Development Practices}{Test-Driven Development, BDD, Agile/Scrum, Code Review}
+  \skillrow{ML \& Data Science}{Machine Learning, AI pipelines, scikit-learn}
+\end{tabularx}
+
+% ── Professional Experience ───────────────────────────────────────────────────
+\section{Professional Experience}
+
+\jobtitle{Advanced Software Engineer}{Brainlab}{Munich, Germany}{01/2022 -- Present}
+\textit{\small Full-stack C++ application engineer, Cranial Navigation R\&D (medical device software)}
+\begin{itemize}
+  \item Engineered life-critical C++ application components for Cranial Navigation surgical guidance software used in \textbf{thousands of surgeries annually across 100+ countries}
+  \item Designed and introduced a company-wide Clang-tidy ruleset with \textbf{5+ custom checks} authored from scratch, eliminating entire classes of bugs (including pointer comparison defects) at compile time across the entire C++ codebase
+  \item Maintained \textbf{>90\% unit test coverage} across all new modules by championing Test-Driven Development, ensuring reliability in safety-critical medical device software (IEC 62304)
+  \item Delivered production releases in Agile/Scrum environment, contributing to full software lifecycle from architecture through QA and regulated release
+\end{itemize}
+
+\vspace{6pt}
+\jobtitle{PostDoc Researcher}{Eberhard Karls University of Tübingen}{Tübingen, Germany}{2020 -- 2022}
+\textit{\small C++/Python frameworks for physics data analysis, Machine Learning, and AI}
+\begin{itemize}
+  \item Architected modular, high-performance C++/Python data analysis frameworks adopted by multiple large international physics collaborations (\textbf{CBM, HADES, ALICE}), replacing legacy analysis pipelines
+  \item Built machine learning pipelines (Pandas, SciPy, NumPy) for particle selection, delivering measurably superior classification performance compared to traditional rule-based selection criteria
+  \item Reduced experiment analysis setup time through reusable library design, thorough documentation, and cross-collaboration knowledge transfer
+\end{itemize}
+
+\vspace{6pt}
+\jobtitle{PostDoc Researcher}{Facility for Antiproton and Ion Research (FAIR)}{Darmstadt, Germany}{2020}
+\textit{\small C++ software development for high-energy physics experiments}
+\begin{itemize}
+  \item Developed optimized C++ data analysis frameworks for processing detector data from high-energy physics experiments
+  \item Applied GPU acceleration (CUDA/OpenCL) to reduce data processing latency for time-critical analysis pipelines
+\end{itemize}
+
+\vspace{6pt}
+\jobtitle{Scientist \& Ph.D. Researcher}{GSI Helmholtzzentrum für Schwerionenforschung}{Darmstadt, Germany}{2015 -- 2019}
+\textit{\small C++ software for nuclear physics data analysis}
+\begin{itemize}
+  \item Built production-grade C++ analysis frameworks for heavy-ion collision detector data, enabling key physics publications
+  \item Implemented SIMD vectorization (Vc library) and OpenMP/CUDA parallelization for compute-intensive workloads
+  \item Completed Ph.D.\ in Nuclear Physics, graduating \textbf{magna cum laude}
+\end{itemize}
+
+% ── Education ─────────────────────────────────────────────────────────────────
+\section{Education}
+
+\noindent
+\textbf{Ph.D., Nuclear Physics} \hfill \textcolor{lightgray}{2016--2019}\\
+Johann Wolfgang Goethe University, Frankfurt, Germany \quad \textit{Graduated magna cum laude}
+
+\vspace{5pt}
+\noindent
+\textbf{M.Sc., High Energy Physics} \hfill \textcolor{lightgray}{2013--2015}\\
+Taras Shevchenko National University, Kyiv, Ukraine \quad \textit{Graduated with distinction}
+
+\vspace{5pt}
+\noindent
+\textbf{B.Sc., Physics} \hfill \textcolor{lightgray}{2009--2013}\\
+Taras Shevchenko National University, Kyiv, Ukraine \quad \textit{Graduated with distinction}
+
+% ── Professional Development ──────────────────────────────────────────────────
+\section{Professional Development}
+
+\noindent
+\textbf{Test-Driven Development} $\cdot$ Coding Academy \hfill \textcolor{lightgray}{July 2025}\\
+\textit{4-week intensive course}
+
+\vspace{5pt}
+\noindent
+\textbf{Functional Programming in C++ / Advanced Templates / Design Patterns} $\cdot$ Klaus Iglberger \hfill \textcolor{lightgray}{2023--2024}
+
+\vspace{5pt}
+\noindent
+\textbf{Efficient Programming Series} $\cdot$ HGS-HIRe School \hfill \textcolor{lightgray}{2017--2018}\\
+\textit{CUDA, OpenCL, ZeroMQ, SIMD vectorization, OpenMP, GDB, Valgrind}
+
+% ── Languages ─────────────────────────────────────────────────────────────────
+\section{Languages}
+
+\noindent
+\textbf{Ukrainian} --- Native \quad
+\textbf{English} --- Fluent \quad
+\textbf{German} --- Intermediate
+
+\end{document}
