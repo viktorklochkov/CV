@@ -4,216 +4,388 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Viktor Klochkov — CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy: #143c6e;
-      --accent: #1e64b4;
-      --light: #f0f4f9;
-      --text: #1a1a2e;
-      --gray: #64748b;
+      --bg:         #080b10;
+      --surface:    #0e1420;
+      --surface2:   #131b2a;
+      --border:     #1c2840;
+      --accent:     #3b9eff;
+      --accent-glow:rgba(59, 158, 255, 0.18);
+      --accent-dim: rgba(59, 158, 255, 0.08);
+      --text:       #c9d5e8;
+      --text-bright:#e8eef7;
+      --muted:      #4a5a78;
+      --mono:       'JetBrains Mono', monospace;
+      --sans:       'DM Sans', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background: var(--light);
+      font-family: var(--sans);
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      /* dot-grid texture */
+      background-image: radial-gradient(circle, #1c2840 1px, transparent 1px);
+      background-size: 28px 28px;
     }
 
+    /* ── HEADER ─────────────────────────────────────────────────────── */
     header {
-      background: var(--navy);
-      color: #fff;
-      padding: 1.8rem 2rem 1.5rem;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 1.9rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    header p.subtitle {
-      margin-top: 0.4rem;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.7);
-    }
-
-    .links {
-      margin-top: 0.9rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 11, 16, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
       display: flex;
-      justify-content: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .links a {
-      color: rgba(255,255,255,0.85);
-      text-decoration: none;
-      font-size: 0.82rem;
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 0.28rem 0.75rem;
-      border-radius: 20px;
-      transition: background 0.2s;
-    }
-
-    .links a:hover { background: rgba(255,255,255,0.15); color: #fff; }
-
-    .toolbar {
-      display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.9rem 1rem;
-      background: #fff;
-      border-bottom: 1px solid #dde3ec;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1.5rem;
+      height: 64px;
+      flex-shrink: 0;
     }
 
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .header-name {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-bright);
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-name span {
+      color: var(--accent);
+    }
+
+    .header-role {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* ── BUTTONS ──────────────────────────────────────────────────────── */
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      padding: 0.48rem 1.1rem;
-      border-radius: 6px;
-      font-size: 0.875rem;
+      gap: 0.4rem;
+      padding: 0.42rem 0.9rem;
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
       font-weight: 600;
       text-decoration: none;
       cursor: pointer;
       border: none;
-      transition: opacity 0.2s, background 0.2s;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+      transition: all 0.18s ease;
     }
 
-    .btn:hover { opacity: 0.85; }
-    .btn-primary { background: var(--accent); color: #fff; }
-    .btn-secondary { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
-
-    .zoom-controls {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.875rem;
-      color: var(--gray);
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 18px rgba(59,158,255,0.35);
+    }
+    .btn-primary:hover {
+      background: #5aaaff;
+      box-shadow: 0 0 26px rgba(59,158,255,0.5);
+      transform: translateY(-1px);
     }
 
-    .zoom-controls button {
-      width: 30px;
-      height: 30px;
-      border: 1px solid #cbd5e1;
-      background: #fff;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1rem;
-      color: var(--navy);
+    .btn-ghost {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      background: var(--accent-glow);
+      border-color: rgba(59,158,255,0.3);
+    }
+
+    .btn-icon {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.42rem 0.55rem;
+      font-size: 0.9rem;
+    }
+    .btn-icon:hover {
+      color: var(--text-bright);
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ── DIVIDER ─────────────────────────────────────────────────────── */
+    .divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ── HERO ────────────────────────────────────────────────────────── */
+    .hero {
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-name {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--text-bright);
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .hero-name .accent { color: var(--accent); }
+
+    .hero-title {
+      margin-top: 0.6rem;
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero-links {
+      margin-top: 1.2rem;
       display: flex;
-      align-items: center;
       justify-content: center;
-      transition: background 0.15s;
+      gap: 0.6rem;
+      flex-wrap: wrap;
     }
 
-    .zoom-controls button:hover { background: var(--light); }
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: all 0.18s;
+      background: var(--accent-dim);
+    }
 
-    #zoom-level { min-width: 3rem; text-align: center; font-weight: 600; color: var(--navy); }
+    .hero-link:hover {
+      color: var(--accent);
+      border-color: rgba(59,158,255,0.35);
+      background: var(--accent-glow);
+    }
 
+    .hero-link svg {
+      width: 12px;
+      height: 12px;
+      opacity: 0.6;
+    }
+
+    /* ── TOOLBAR ─────────────────────────────────────────────────────── */
+    .toolbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 2rem 1.5rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .zoom-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      min-width: 2.8rem;
+      text-align: center;
+    }
+
+    /* ── PDF VIEWER ──────────────────────────────────────────────────── */
     .pdf-scroll {
       flex: 1;
       overflow-y: auto;
-      padding: 1.5rem 1rem;
+      padding: 0 1rem 3rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
     .page-wrapper {
       background: #fff;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.12);
-      border-radius: 4px;
+      border-radius: 3px;
       overflow: hidden;
       line-height: 0;
+      box-shadow:
+        0 0 0 1px rgba(59,158,255,0.08),
+        0 8px 32px rgba(0,0,0,0.6),
+        0 32px 80px rgba(0,0,0,0.4);
+      animation: fadeUp 0.5s ease both;
+      max-width: 100%;
     }
 
-    .page-wrapper canvas { display: block; }
+    .page-wrapper canvas { display: block; max-width: 100%; }
 
+    /* ── LOADING ─────────────────────────────────────────────────────── */
     #loading {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       gap: 1rem;
-      padding: 4rem;
-      color: var(--gray);
+      padding: 5rem 2rem;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.8rem;
     }
 
     .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid #dde3ec;
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--border);
       border-top-color: var(--accent);
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      animation: spin 0.7s linear infinite;
+    }
+
+    #error {
+      display: none;
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+    }
+
+    #error a { color: var(--accent); }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      border-top: 1px solid var(--border);
+      background: rgba(8,11,16,0.7);
+    }
+
+    footer span { color: var(--accent); opacity: 0.7; }
+
+    /* ── ANIMATIONS ──────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    #error {
-      display: none;
-      padding: 3rem;
-      text-align: center;
-      color: var(--gray);
-    }
-
-    #error a { color: var(--accent); font-weight: 600; }
-
-    footer {
-      text-align: center;
-      padding: 0.9rem;
-      font-size: 0.75rem;
-      color: var(--gray);
-      background: #fff;
-      border-top: 1px solid #dde3ec;
+    /* ── RESPONSIVE ──────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      header { padding: 0 1rem; }
+      .header-role { display: none; }
+      .hero { padding: 2rem 1rem 1.5rem; }
+      .pdf-scroll { padding: 0 0.5rem 2rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Sticky nav bar -->
   <header>
-    <h1>Viktor Klochkov, Ph.D.</h1>
-    <p class="subtitle">Senior Software Engineer &nbsp;·&nbsp; C++ Systems &nbsp;·&nbsp; Static Analysis &nbsp;·&nbsp; Medical Device Software</p>
-    <div class="links">
-      <a href="mailto:klochkov44@gmail.com">✉ klochkov44@gmail.com</a>
-      <a href="https://github.com/viktorklochkov" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/viktor-klochkov/" target="_blank">LinkedIn</a>
+    <div class="header-left">
+      <div class="header-name">Viktor Klochkov<span>, Ph.D.</span></div>
+      <div class="header-role">C++ · Static Analysis · Medical Device Software</div>
+    </div>
+    <div class="header-right">
+      <a class="btn btn-ghost" href="viktor_klochkov_cv.pdf" target="_blank">↗ Open</a>
+      <a class="btn btn-primary" href="viktor_klochkov_cv.pdf" download>↓ Download</a>
     </div>
   </header>
 
-  <div class="toolbar">
-    <a class="btn btn-primary" href="viktor_klochkov_cv.pdf" download>↓ Download PDF</a>
-    <a class="btn btn-secondary" href="viktor_klochkov_cv.pdf" target="_blank">↗ Open in new tab</a>
-    <div class="zoom-controls">
-      <button id="zoom-out" title="Zoom out">−</button>
-      <span id="zoom-level">100%</span>
-      <button id="zoom-in" title="Zoom in">+</button>
+  <!-- Hero section -->
+  <div class="hero">
+    <div class="hero-name">Viktor Klochkov<span class="accent">.pdf</span></div>
+    <div class="hero-title">Senior Software Engineer &nbsp;/&nbsp; Munich, DE</div>
+    <div class="hero-links">
+      <a class="hero-link" href="mailto:klochkov44@gmail.com">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.5L8 8.5 1 3.5V3zm0 1.868V13a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4.868L8 9.9 1 4.868z"/></svg>
+        klochkov44@gmail.com
+      </a>
+      <a class="hero-link" href="https://github.com/viktorklochkov" target="_blank">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        viktorklochkov
+      </a>
+      <a class="hero-link" href="https://www.linkedin.com/in/viktor-klochkov/" target="_blank">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+        viktor-klochkov
+      </a>
     </div>
   </div>
 
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button class="btn btn-icon" id="zoom-out" title="Zoom out">−</button>
+    <span class="zoom-label" id="zoom-level">100%</span>
+    <button class="btn btn-icon" id="zoom-in" title="Zoom in">+</button>
+    <div class="divider"></div>
+    <button class="btn btn-ghost" id="fit-width">fit width</button>
+  </div>
+
+  <!-- PDF canvas container -->
   <div class="pdf-scroll" id="pdf-scroll">
     <div id="loading">
       <div class="spinner"></div>
-      <span>Loading CV…</span>
+      <span>rendering document…</span>
     </div>
     <div id="error">
-      <p>Could not load the PDF.</p>
-      <p style="margin-top:0.5rem"><a href="viktor_klochkov_cv.pdf">Click here to download it directly</a></p>
+      <p>Could not load PDF.</p>
+      <p style="margin-top:0.5rem"><a href="viktor_klochkov_cv.pdf">Download directly</a></p>
     </div>
   </div>
 
   <footer>
-    Last updated: March 2026 &nbsp;·&nbsp; Built with LaTeX &amp; GitHub Actions
+    last updated <span>March 2026</span> &nbsp;·&nbsp; built with <span>LaTeX</span> + <span>GitHub Actions</span>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -221,41 +393,52 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    const PDF_URL = 'viktor_klochkov_cv.pdf';
+    const PDF_URL   = 'viktor_klochkov_cv.pdf';
     const container = document.getElementById('pdf-scroll');
     const loading   = document.getElementById('loading');
     const errorDiv  = document.getElementById('error');
+    const zoomLabel = document.getElementById('zoom-level');
 
-    let pdfDoc  = null;
-    let scale   = 1.5;
-    const MAX_WIDTH = 860;
+    const MAX_WIDTH = 900;
+    let pdfDoc = null;
+    let scale  = 1.0;  // multiplier on top of fit-to-width
+
+    function containerWidth() {
+      return Math.min(container.clientWidth - 32, MAX_WIDTH);
+    }
 
     function renderPage(pageNum) {
       return pdfDoc.getPage(pageNum).then(page => {
-        const baseViewport = page.getViewport({ scale: 1 });
-        const containerWidth = Math.min(container.clientWidth - 48, MAX_WIDTH);
-        const fitScale = containerWidth / baseViewport.width;
-        const viewport = page.getViewport({ scale: fitScale * scale });
+        const base     = page.getViewport({ scale: 1 });
+        const fitScale = containerWidth() / base.width;
+        const vp       = page.getViewport({ scale: fitScale * scale });
 
         const wrapper = document.createElement('div');
         wrapper.className = 'page-wrapper';
+        wrapper.style.animationDelay = `${(pageNum - 1) * 0.08}s`;
 
-        const canvas = document.createElement('canvas');
-        canvas.width  = viewport.width;
-        canvas.height = viewport.height;
+        const canvas  = document.createElement('canvas');
+        const dpr     = window.devicePixelRatio || 1;
+        canvas.width  = vp.width  * dpr;
+        canvas.height = vp.height * dpr;
+        canvas.style.width  = vp.width  + 'px';
+        canvas.style.height = vp.height + 'px';
+
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+
         wrapper.appendChild(canvas);
         container.appendChild(wrapper);
 
-        return page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+        return page.render({ canvasContext: ctx, viewport: vp }).promise;
       });
     }
 
     function renderAll() {
-      // Remove all page wrappers (keep loading/error divs)
       container.querySelectorAll('.page-wrapper').forEach(el => el.remove());
-      const renders = [];
-      for (let i = 1; i <= pdfDoc.numPages; i++) renders.push(renderPage(i));
-      return Promise.all(renders);
+      const jobs = [];
+      for (let i = 1; i <= pdfDoc.numPages; i++) jobs.push(renderPage(i));
+      return Promise.all(jobs);
     }
 
     pdfjsLib.getDocument(PDF_URL).promise.then(doc => {
@@ -268,18 +451,35 @@
     });
 
     // Zoom
-    const zoomLabel = document.getElementById('zoom-level');
+    function updateZoomLabel() {
+      zoomLabel.textContent = Math.round(scale * 100) + '%';
+    }
+
     document.getElementById('zoom-in').addEventListener('click', () => {
-      if (scale >= 3) return;
-      scale = Math.min(scale + 0.25, 3);
-      zoomLabel.textContent = Math.round(scale / 1.5 * 100) + '%';
+      if (scale >= 2.5) return;
+      scale = Math.min(+(scale + 0.2).toFixed(1), 2.5);
+      updateZoomLabel();
       if (pdfDoc) renderAll();
     });
+
     document.getElementById('zoom-out').addEventListener('click', () => {
-      if (scale <= 0.5) return;
-      scale = Math.max(scale - 0.25, 0.5);
-      zoomLabel.textContent = Math.round(scale / 1.5 * 100) + '%';
+      if (scale <= 0.4) return;
+      scale = Math.max(+(scale - 0.2).toFixed(1), 0.4);
+      updateZoomLabel();
       if (pdfDoc) renderAll();
+    });
+
+    document.getElementById('fit-width').addEventListener('click', () => {
+      scale = 1.0;
+      updateZoomLabel();
+      if (pdfDoc) renderAll();
+    });
+
+    // Re-render on resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { if (pdfDoc) renderAll(); }, 200);
     });
   </script>
 
