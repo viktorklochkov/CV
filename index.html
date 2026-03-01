@@ -264,7 +264,7 @@
       max-width: 100%;
     }
 
-    .page-wrapper canvas { display: block; max-width: 100%; }
+    .page-wrapper canvas { display: block; }
 
     /* ── LOADING ─────────────────────────────────────────────────────── */
     #loading {
@@ -404,7 +404,8 @@
     let scale  = 1.0;  // multiplier on top of fit-to-width
 
     function containerWidth() {
-      return Math.min(container.clientWidth - 32, MAX_WIDTH);
+      // account for scrollbar (~17px) and padding (2×16px)
+      return Math.min(container.getBoundingClientRect().width - 48, MAX_WIDTH);
     }
 
     function renderPage(pageNum) {
@@ -416,13 +417,18 @@
         const wrapper = document.createElement('div');
         wrapper.className = 'page-wrapper';
         wrapper.style.animationDelay = `${(pageNum - 1) * 0.08}s`;
+        // fix size explicitly so CSS never clips it
+        wrapper.style.width  = Math.floor(vp.width)  + 'px';
+        wrapper.style.height = Math.floor(vp.height) + 'px';
 
-        const canvas  = document.createElement('canvas');
-        const dpr     = window.devicePixelRatio || 1;
-        canvas.width  = vp.width  * dpr;
-        canvas.height = vp.height * dpr;
-        canvas.style.width  = vp.width  + 'px';
-        canvas.style.height = vp.height + 'px';
+        const canvas = document.createElement('canvas');
+        const dpr    = window.devicePixelRatio || 1;
+        // physical pixels for sharpness
+        canvas.width  = Math.floor(vp.width  * dpr);
+        canvas.height = Math.floor(vp.height * dpr);
+        // CSS size matches logical pixels exactly — no CSS scaling
+        canvas.style.width  = Math.floor(vp.width)  + 'px';
+        canvas.style.height = Math.floor(vp.height) + 'px';
 
         const ctx = canvas.getContext('2d');
         ctx.scale(dpr, dpr);
