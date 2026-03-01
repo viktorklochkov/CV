@@ -254,17 +254,15 @@
     .page-wrapper {
       background: #fff;
       border-radius: 3px;
-      overflow: hidden;
       line-height: 0;
       box-shadow:
         0 0 0 1px rgba(59,158,255,0.08),
         0 8px 32px rgba(0,0,0,0.6),
         0 32px 80px rgba(0,0,0,0.4);
       animation: fadeUp 0.5s ease both;
-      max-width: 100%;
     }
 
-    .page-wrapper canvas { display: block; }
+    .page-wrapper canvas { display: block; border-radius: 3px; }
 
     /* ── LOADING ─────────────────────────────────────────────────────── */
     #loading {
@@ -404,8 +402,9 @@
     let scale  = 1.0;  // multiplier on top of fit-to-width
 
     function containerWidth() {
-      // account for scrollbar (~17px) and padding (2×16px)
-      return Math.min(container.getBoundingClientRect().width - 48, MAX_WIDTH);
+      // window.innerWidth is stable regardless of canvas content in DOM
+      // subtract 2×16px (pdf-scroll padding) + 16px buffer
+      return Math.min(window.innerWidth - 48, MAX_WIDTH);
     }
 
     function renderPage(pageNum) {
@@ -440,8 +439,10 @@
       });
     }
 
-    function renderAll() {
+    async function renderAll() {
       container.querySelectorAll('.page-wrapper').forEach(el => el.remove());
+      // wait one frame so the DOM clears and width stabilises before measuring
+      await new Promise(r => requestAnimationFrame(r));
       const jobs = [];
       for (let i = 1; i <= pdfDoc.numPages; i++) jobs.push(renderPage(i));
       return Promise.all(jobs);
